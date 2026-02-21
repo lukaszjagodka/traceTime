@@ -16,7 +16,7 @@ A professional WPF application for monitoring PC activity, tracking focus time, 
 * **NAudio** (Audio monitoring)
 
 ## 📸 Preview
-![App Screenshot 1](TraceTime/TraceTime/Images/app_sc_1.png)
-![App Screenshot 2](TraceTime/TraceTime/Images/app_sc_2.png)
-![App Screenshot 3](TraceTime/TraceTime/Images/app_sc_3.png)
-![App Screenshot 4](TraceTime/TraceTime/Images/app_sc_4.png)
+![App Screenshot 1](traceTime/TraceTime/Images/app_sc_1.png)
+![App Screenshot 2](traceTime/TraceTime/Images/app_sc_2.png)
+![App Screenshot 3](traceTime/TraceTime/Images/app_sc_3.png)
+![App Screenshot 4](traceTime/TraceTime/Images/app_sc_4.png)
