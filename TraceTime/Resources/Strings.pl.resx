@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BackgroundStatusLng" xml:space="preserve">
+    <value> (tło)</value>
+  </data>
+  <data name="FocusStatusLng" xml:space="preserve">
+    <value> (skupienie)</value>
+  </data>
+  <data name="Last30Days" xml:space="preserve">
+    <value>Ostatnie 30 dni</value>
+  </data>
+  <data name="TotalActivity" xml:space="preserve">
+    <value>Suma aktywności</value>
+  </data>
+  <data name="TodayLng" xml:space="preserve">
+    <value>Dzisiaj</value>
+  </data>
+  <data name="YesterdayLang" xml:space="preserve">
+    <value>Wczoraj</value>
+  </data>
+  <data name="TraceTimeLng" xml:space="preserve">
+    <value>TraceTime</value>
+  </data>
+  <data name="StillMonitoringTime" xml:space="preserve">
+    <value>Nadal monitoruję Twój czas!</value>
+  </data>
+  <data name="TableLng" xml:space="preserve">
+    <value>Tabela</value>
+  </data>
+  <data name="PostsLng" xml:space="preserve">
+    <value>Słupki</value>
+  </data>
+  <data name="AppRunsBckg" xml:space="preserve">
+    <value>Aplikacja działa w tle</value>
+  </data>
+  <data name="AutostartError" xml:space="preserve">
+    <value>Błąd autostartu: </value>
+  </data>
+  <data name="EndAppLng" xml:space="preserve">
+    <value>Zakończ program</value>
+  </data>
+  <data name="OpenTraceTimeLng" xml:space="preserve">
+    <value>Otwórz TraceTime</value>
+  </data>
+  <data name="TTActivityMonitoringLng" xml:space="preserve">
+    <value>TraceTime - Monitorowanie Aktywności</value>
+  </data>
+  <data name="HyphenLng" xml:space="preserve">
+    <value>-</value>
+  </data>
+  <data name="Last24hLng" xml:space="preserve">
+    <value>Ostatnie 24h</value>
+  </data>
+  <data name="TimerErrorLng" xml:space="preserve">
+    <value>Błąd Timera</value>
+  </data>
+  <data name="IdleLng" xml:space="preserve">
+    <value>BEZCZYNNOŚĆ (PAUZA)</value>
+  </data>
+  <data name="NoActivityLng" xml:space="preserve">
+    <value>BRAK AKTYWNOŚCI</value>
+  </data>
+  <data name="InBckgLng" xml:space="preserve">
+    <value> (W TLE)</value>
+  </data>
+  <data name="AudioStatusFormatLng" xml:space="preserve">
+    <value>Wideo / Audio - {0}</value>
+  </data>
+  <data name="LastActivityLabel" xml:space="preserve">
+    <value>Ostatnia aktywność:</value>
+  </data>
+  <data name="MonitoringStatus" xml:space="preserve">
+    <value>Monitorowanie...</value>
+  </data>
+  <data name="NoActiveWindow" xml:space="preserve">
+    <value>Brak aktywnego okna</value>
+  </data>
+  <data name="TabLive" xml:space="preserve">
+    <value>Podgląd Live</value>
+  </data>
+  <data name="TodayLiveHeader" xml:space="preserve">
+    <value>DZISIAJ (LIVE)</value>
+  </data>
+  <data name="AplicationLabel" xml:space="preserve">
+    <value>Aplikacja</value>
+  </data>
+  <data name="DetailsCards" xml:space="preserve">
+    <value>Szczegóły (Karta)</value>
+  </data>
+  <data name="TimeLabel" xml:space="preserve">
+    <value>Czas (s)</value>
+  </data>
+  <data name="SummaryStatistics" xml:space="preserve">
+    <value>Statystyki Sumaryczne</value>
+  </data>
+  <data name="ActivityLast30Days" xml:space="preserve">
+    <value>AKTYWNOŚĆ (OSTATNIE 30 DNI)</value>
+  </data>
+  <data name="SelectedRange" xml:space="preserve">
+    <value>WYBRANY ZAKRES</value>
+  </data>
+  <data name="RangeLabel" xml:space="preserve">
+    <value>Zakres:</value>
+  </data>
+  <data name="ViewLabel" xml:space="preserve">
+    <value>Widok</value>
+  </data>
+  <data name="RangeWeek" xml:space="preserve">
+    <value>Tydzień</value>
+  </data>
+  <data name="RangeMonth" xml:space="preserve">
+    <value>Miesiąc</value>
+  </data>
+  <data name="RangeAllTime" xml:space="preserve">
+    <value>Cały czas</value>
+  </data>
+  <data name="ViewCharts" xml:space="preserve">
+    <value>Słupki</value>
+  </data>
+  <data name="SettingsLabel" xml:space="preserve">
+    <value>Ustawienia</value>
+  </data>
+  <data name="LanguageChangeLang" xml:space="preserve">
+    <value>Zmiana języka</value>
+  </data>
+  <data name="LanguageChangeRestartNote" xml:space="preserve">
+    <value>Zmiana wymaga restartu. Czy chcesz zrestartować teraz?</value>
+  </data>
+  <data name="EnglishLang" xml:space="preserve">
+    <value>Angielski</value>
+  </data>
+  <data name="PolishLang" xml:space="preserve">
+    <value>Polski</value>
+  </data>
+  <data name="PrivacyModeLabel" xml:space="preserve">
+    <value>Tryb prywatności (ukryj tytuły)</value>
+  </data>
+  <data name="StartWithWindows" xml:space="preserve">
+    <value>Uruchom z Windows</value>
+  </data>
+</root>

@@ -1,0 +1,365 @@
+﻿<!-- Commit 1 -->
+<!-- Initial window structure, base layout, and localization namespaces -->
+    <Window x:Class="TraceTime.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:TraceTime"
+        Height="700" 
+        Width="700"
+        Title="TraceTime - Smart Dashboard"
+        Icon="pack://application:,,,/Resources/tt_icon.ico"
+        Background="#1E1E1E" Foreground="#FFFFFF">
+
+    <Window.Resources>
+        <!-- Commit 2 -->
+        <!-- UI Styles: Definitions for GridView, ListView, and TabItems to ensure dark theme consistency -->
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="#333333"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#1E1E1E"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridViewColumnHeader">
+                        <Grid>
+                            <Border x:Name="HeaderBorder" 
+                            Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="0,0,1,1">
+                                <ContentPresenter HorizontalAlignment="Center" 
+                                          VerticalAlignment="Center" 
+                                          Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="HeaderBorder" Property="Background" Value="#444444"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="HeaderBorder" Property="Background" Value="#222222"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListView">
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="BorderBrush" Value="#333333"/>
+            <Setter Property="Foreground" Value="#E1E1E1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListView">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            SnapsToDevicePixels="true">
+                            <ScrollViewer Padding="{TemplateBinding Padding}" Focusable="false">
+                                <StackPanel>
+                                    <GridViewHeaderRowPresenter Columns="{Binding Path=View.Columns, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="ListViewItem">
+            <Setter Property="Foreground" Value="#E1E1E1"/>
+            <Setter Property="Background" Value="#1E1E1E"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="Bd" Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        Padding="{TemplateBinding Padding}" 
+                        SnapsToDevicePixels="true">
+                            <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#3E3E42"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#007ACC"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="#2D2D2D"/>
+            <Setter Property="Foreground" Value="#AAAAAA"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Grid x:Name="Root">
+                            <Border x:Name="Border" Background="{TemplateBinding Background}" BorderBrush="#333333" BorderThickness="1,1,1,0" Margin="0,0,2,0">
+                                <ContentPresenter x:Name="ContentSite" ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}"/>
+                            </Border>
+                            <Border x:Name="Underline" Height="3" Background="Transparent" VerticalAlignment="Bottom"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#1E1E1E"/>
+                                <Setter Property="Foreground" Value="#00AEFF"/>
+                                <Setter TargetName="Underline" Property="Background" Value="#00AEFF"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#3E3E42"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- Commit 2 End -->
+    </Window.Resources>
+
+    <Grid>
+        <TabControl Background="#1E1E1E" BorderThickness="0" Margin="0">
+            <!-- Commit 3 -->
+            <!-- Live Monitoring View: Real-time status indicators and history list -->
+            <TabItem Header="{x:Static p:Strings.TabLive}" Background="#2D2D2D" Foreground="White">
+                <Grid Background="#1E1E1E">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="15">
+                        <UniformGrid Columns="1" Margin="0,5,0,5">
+                            <Border Background="#2D2D2D" CornerRadius="8" Margin="0" Padding="15 10 15 10">
+                                <StackPanel>
+                                    <TextBlock Text="{x:Static p:Strings.TodayLiveHeader}" FontSize="11" FontWeight="Bold" Foreground="#A0A0A0" Margin="0,0,0,5"/>
+                                    <TextBlock x:Name="TotalTodayStatsText" Text="00h 00m 00s" FontSize="18" FontWeight="SemiBold" Foreground="#4CAF50"/>
+                                </StackPanel>
+                            </Border>
+                        </UniformGrid>
+                        <TextBlock Text="{x:Static p:Strings.LastActivityLabel}" FontSize="18" FontWeight="Bold" Foreground="#00AEFF"/>
+                        <TextBlock x:Name="CurrentAppText" Text="{x:Static p:Strings.MonitoringStatus}" Foreground="#4EC9B0" FontSize="16" Margin="0,5,0,0"/>
+                        <TextBlock x:Name="CurrentTitleText" Text="{x:Static p:Strings.NoActiveWindow}" FontSize="13" Foreground="#888888" TextTrimming="CharacterEllipsis"/>
+                    </StackPanel>
+
+                    <ListView x:Name="ActivityList" Grid.Row="1" Margin="10">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static p:Strings.AplicationLabel}" Width="120">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Image Source="{Binding Icon}" Width="16" Height="16" Margin="0,0,5,0" />
+                                                <TextBlock Text="{Binding AppName}" VerticalAlignment="Center" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="{x:Static p:Strings.DetailsCards}" Width="465">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <!-- Commit 7 -->
+                                                <!-- Privacy Mode UI: Integration of BlurEffect for sensitive window titles -->
+                                                <TextBlock Text="{Binding WindowTitle}" VerticalAlignment="Center">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ElementName=PrivacyModeCheckbox, Path=IsChecked}" Value="True">
+                                                                    <Setter Property="Effect">
+                                                                        <Setter.Value>
+                                                                            <BlurEffect Radius="7" KernelType="Box"/>
+                                                                        </Setter.Value>
+                                                                    </Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                                <!-- Commit 7 End -->
+
+                                                <TextBlock Text="{Binding AppName, StringFormat=' — \{0\}'}" VerticalAlignment="Center" Foreground="#4EC9B0" FontWeight="SemiBold" Margin="5,0,0,0"/>
+                                                <TextBlock Text="{Binding CurrentStatus}" VerticalAlignment="Center" Foreground="#888888" Margin="5,0,0,0" FontStyle="Italic"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="{x:Static p:Strings.TimeLabel}" DisplayMemberBinding="{Binding Duration}" Width="60"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Grid>
+            </TabItem>
+            <!-- Commit 3 End -->
+
+            <!-- Commit 5 -->
+            <!-- Statistics View: Historical data filtering and graphical bars representation -->
+            <TabItem Header="{x:Static p:Strings.SummaryStatistics}" Background="#2D2D2D" Foreground="White">
+                <Grid Background="#1E1E1E">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Commit 6 -->
+                    <!-- Visualization: Implementation of the 30-day activity HeatMap -->
+                    <UniformGrid Grid.Row="0" Columns="1" Margin="10,10,10,0">
+                        <Border Background="#2D2D2D" CornerRadius="8" Padding="12,8" BorderBrush="#3D3D3D" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="{x:Static p:Strings.ActivityLast30Days}" Foreground="#888888" FontSize="9" FontWeight="Bold" Margin="0,0,0,5"/>
+                                <ItemsControl x:Name="HeatMapControl">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <UniformGrid Rows="1" HorizontalAlignment="Left"/>
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Rectangle Width="10" Height="10" Margin="1" RadiusX="2" RadiusY="2" Fill="{Binding Color}" ToolTip="{Binding ToolTipText}"/>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+                    <!-- Commit 6 End -->
+
+                    <UniformGrid Grid.Row="1" Columns="2" Margin="10,10,10,0">
+                        <Border Background="#2D2D2D" CornerRadius="8" Margin="0,0,5,0" Padding="15,10" BorderBrush="#3D3D3D" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock Text="{x:Static p:Strings.ActivityLast30Days}" FontSize="10" FontWeight="Bold" Foreground="#A0A0A0" Margin="0,0,0,2"/>
+                                <TextBlock x:Name="TotalTodayText" Text="00h 00m 00s" FontSize="18" FontWeight="SemiBold" Foreground="#4CAF50"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="#2D2D2D" CornerRadius="8" Margin="5,0,0,0" Padding="15,10" BorderBrush="#3D3D3D" BorderThickness="1">
+                            <StackPanel>
+                                <TextBlock x:Name="FilterLabelText" Text="{x:Static p:Strings.SelectedRange}" FontSize="10" FontWeight="Bold" Foreground="#A0A0A0" Margin="0,0,0,2"/>
+                                <TextBlock x:Name="TotalFilteredText" Text="00h 00m 00s" FontSize="18" FontWeight="SemiBold" Foreground="#2196F3"/>
+                            </StackPanel>
+                        </Border>
+                    </UniformGrid>
+
+                    <Border Grid.Row="2" Background="#2D2D2D" CornerRadius="8" Padding="12" Margin="10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{x:Static p:Strings.RangeLabel}" VerticalAlignment="Center" Margin="0,0,8,0" FontWeight="SemiBold" Foreground="White"/>
+                            <ComboBox x:Name="RangeCombo" Width="120" SelectedIndex="0" SelectionChanged="RangeCombo_SelectionChanged">
+                                <ComboBoxItem Content="{x:Static p:Strings.TodayLng}" Tag="Today"/>
+                                <ComboBoxItem Content="{x:Static p:Strings.Last24hLng}" Tag="Last24h"/>
+                                <ComboBoxItem Content="{x:Static p:Strings.YesterdayLang}" Tag="Yesterday"/>
+                                <ComboBoxItem Content="{x:Static p:Strings.RangeWeek}" Tag="Week"/>
+                                <ComboBoxItem Content="{x:Static p:Strings.RangeMonth}" Tag="Month"/>
+                                <ComboBoxItem Content="{x:Static p:Strings.RangeAllTime}" Tag="AllTime"/>
+                            </ComboBox>
+                            <TextBlock Text="{x:Static p:Strings.ViewLabel}" VerticalAlignment="Center" Margin="20,0,8,0" FontWeight="SemiBold" Foreground="White"/>
+                            <ComboBox x:Name="ViewTypeCombo" Width="100" SelectedIndex="0" SelectionChanged="RangeCombo_SelectionChanged">
+                                <ComboBoxItem Content="{x:Static p:Strings.TableLng}" Tag="Table"/>
+                                <ComboBoxItem Content="{x:Static p:Strings.ViewCharts}" Tag="Charts"/>
+                            </ComboBox>
+                            <CheckBox x:Name="DetailedTimeCheckbox" Content="Szczegóły (z tłem)" Checked="DetailedTime_Changed" Unchecked="DetailedTime_Changed" Margin="10,5" Foreground="White"/>
+                        </StackPanel>
+                    </Border>
+
+                    <Grid Grid.Row="3" Margin="10 5 10 0">
+                        <ListView x:Name="StatsList" Visibility="Collapsed">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Aplikacja" DisplayMemberBinding="{Binding AppName}" Width="180"/>
+                                    <GridViewColumn Header="Łączny czas" DisplayMemberBinding="{Binding Tag}" Width="250"/>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="StatsBars" Visibility="Visible">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,0,0,12">
+                                            <Button Click="Bar_Click" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch" Cursor="Hand">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <ContentPresenter />
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                                <StackPanel>
+                                                    <TextBlock Text="{Binding AppName}" Foreground="#E1E1E1" FontWeight="SemiBold" Margin="0,0,0,4"/>
+                                                    <Grid>
+                                                        <Rectangle Height="24" Fill="#333333" HorizontalAlignment="Stretch" RadiusX="4" RadiusY="4"/>
+                                                        <Rectangle Height="24" HorizontalAlignment="Left" RadiusX="4" RadiusY="4" Width="{Binding BarWidth}">
+                                                            <Rectangle.Fill>
+                                                                <LinearGradientBrush EndPoint="1,0" StartPoint="0,0">
+                                                                    <GradientStop Color="#007ACC" Offset="0"/>
+                                                                    <GradientStop Color="#00AEFF" Offset="1"/>
+                                                                </LinearGradientBrush>
+                                                            </Rectangle.Fill>
+                                                        </Rectangle>
+                                                        <TextBlock Text="{Binding Tag}" VerticalAlignment="Center" Margin="12,0" Foreground="White" FontSize="11" FontWeight="Bold"/>
+                                                    </Grid>
+                                                </StackPanel>
+                                            </Button>
+                                            <ItemsControl x:Name="DetailsList" ItemsSource="{Binding Details}" Margin="30,5,10,5">
+                                                <ItemsControl.Style>
+                                                    <Style TargetType="ItemsControl">
+                                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding IsExpanded}" Value="True">
+                                                                <Setter Property="Visibility" Value="Visible"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </ItemsControl.Style>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Grid Margin="0,2">
+                                                            <TextBlock Text="{Binding WindowTitle}" TextTrimming="CharacterEllipsis" MaxWidth="400" Foreground="#AAAAAA" FontSize="12" HorizontalAlignment="Left" Margin="5,0,0,0" />
+                                                            <TextBlock Text="{Binding Tag}" HorizontalAlignment="Right" FontSize="10" Foreground="#00AEFF" FontWeight="Bold" Margin="10,0,0,0"/>
+                                                        </Grid>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <!-- Commit 5 End -->
+
+            <!-- Commit 4 -->
+            <!-- Settings Panel: Controls for Language, Privacy Mode, and System Autostart -->
+            <TabItem Background="#2D2D2D" HorizontalAlignment="Right" DockPanel.Dock="Right">
+                <TabItem.Header>
+                    <TextBlock Text="" FontFamily="Segoe MDL2 Assets" FontSize="16" ToolTip="{x:Static p:Strings.SettingsLabel}"/>
+                </TabItem.Header>
+                <Grid Background="#1E1E1E">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="{x:Static p:Strings.SettingsLabel}" FontSize="20" Foreground="White" Margin="0,0,0,20"/>
+                        <TextBlock Text="{x:Static p:Strings.LanguageChangeLang}" Foreground="#A0A0A0" Margin="0,0,0,5"/>
+                        <ComboBox x:Name="LangChangeCombo" Width="150" HorizontalAlignment="Left" SelectionChanged="LangChangeCombo_SelectionChanged">
+                            <ComboBoxItem Content="{x:Static p:Strings.EnglishLang}" Tag="en-US"/>
+                            <ComboBoxItem Content="{x:Static p:Strings.PolishLang}" Tag="pl-PL"/>
+                        </ComboBox>
+                        <CheckBox x:Name="PrivacyModeCheckbox" Content="{x:Static p:Strings.PrivacyModeLabel}" Foreground="White" Margin="0,15,0,0" Checked="PrivacyMode_Changed" Unchecked="PrivacyMode_Changed"/>
+                        <CheckBox x:Name="AutostartCheckbox" Content="{x:Static p:Strings.StartWithWindows}" Foreground="White" Margin="0,10,0,0" Checked="Autostart_Changed" Unchecked="Autostart_Changed"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <!-- Commit 4 End -->
+        </TabControl>
+    </Grid>
+</Window>
+<!-- Commit 1 End -->
