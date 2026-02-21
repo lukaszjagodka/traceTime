@@ -11,7 +11,7 @@ A professional WPF application for monitoring PC activity, tracking focus time, 
 * **Auto-start with Windows:** Option to automatically launch the application on system startup via the Windows Registry.
 
 ## 🛠 Tech Stack
-* **C# / .NET 8 / WPF**
+* **C# / .NET 10 / WPF**
 * **SQLite & Dapper** (Data persistence)
 * **NAudio** (Audio monitoring)
 
